@@ -18,6 +18,9 @@ int main(){
     InitWindow(windowX,windowY, "Jogo RTS");
     SetTargetFPS(60);
     
+    InitAudioDevice();
+    Music music = LoadMusicStream("assets/audio/backmusic.mp3");
+
     GameCamera camera = CameraInit();
 
     World world = WorldLoad(
@@ -47,11 +50,13 @@ int main(){
     bool isDragging = false;
     Vector3 dragOffset = {0};
 
-
+    PlayMusicStream(music);
+    SetMusicVolume(music, 1.0f);
     while(!WindowShouldClose()){
 
         CameraUpdate(&camera);
         EntityUpdate(&chest);
+        UpdateMusicStream(music);
 
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
             Ray ray = GetMouseRay(GetMousePosition(), camera.cam);
@@ -102,13 +107,20 @@ int main(){
         }
 
         EndMode3D();
-        
+        DrawText(TextFormat("FPS: %d", GetFPS()), windowX-120, 10,30, DARKGRAY);
         DrawText("Sandbox feito em C", 10, 10,30, DARKGRAY);
         DrawText("Use Q para aumentar o zoom e E para diminuir", 10, windowY - 70,30, DARKGRAY);
         DrawText("Use as setinhas para mover a camera", 10, windowY - 40,30, DARKGRAY);
         EndDrawing();
     }
+
+    UnloadMusicStream(music);
+   
     EntityUnload(chest);
     WorldUnload(world);
+
+    CloseAudioDevice();
     CloseWindow();
+
+    return 0;
 }
