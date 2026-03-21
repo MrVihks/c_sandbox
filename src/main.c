@@ -1,12 +1,21 @@
-#include "raylib.h"
 #include <stdio.h>
+
+#include "raylib.h"
+#include "raymath.h"
 
 #include "camera.h"
 #include "entity.h"
 #include "world.h"
 
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
+
 int main(){
-    InitWindow(800,600, "Jogo RTS");
+
+    int windowX = 1280;
+    int windowY = 768;
+
+    InitWindow(windowX,windowY, "Jogo RTS");
     SetTargetFPS(60);
     
     GameCamera camera = CameraInit();
@@ -16,33 +25,87 @@ int main(){
         "assets/textures/chest_texture.png"
     );
 
+  
     Entity chest = EntityLoad(
         "assets/models/chest_model.glb",
         "assets/textures/chest_texture.png"
     );
 
     chest.scale = (Vector3){0.2f,0.2f,0.2f};
-    chest.position = (Vector3){0.0f,5.0f, 0.0f};
+    chest.position = (Vector3){0.0f,4.5f, 0.0f};
     world.scale = (Vector3){20.0f,20.0f, 20.0f};
+
+    Matrix transform = MatrixScale(
+        world.scale.x,
+        world.scale.y,
+        world.scale.z
+    );
+
+    RayCollision hit;
+    BoundingBox box;
+    
+    bool isDragging = false;
+    Vector3 dragOffset = {0};
+
 
     while(!WindowShouldClose()){
 
         CameraUpdate(&camera);
         EntityUpdate(&chest);
 
+        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            Ray ray = GetMouseRay(GetMousePosition(), camera.cam);
+
+            hit = GetRayCollisionBox(ray, box);
+         
+            if(hit.hit){
+                isDragging = true;
+
+                dragOffset = Vector3Subtract(chest.position, hit.point);
+            }
+        }
+
+        if(IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
+            isDragging = false;
+        }
+   
+        if(isDragging){
+            Ray ray = GetMouseRay(GetMousePosition(), camera.cam);
+
+            RayCollision groundHit = GetRayCollisionMesh(ray, world.terrainModel.meshes[0],transform);
+
+            if(groundHit.hit){
+                Vector3 newPos = Vector3Add(groundHit.point, dragOffset);
+
+                chest.position.x = newPos.x;
+                chest.position.z = newPos.z;
+            }
+        }
+
+        box = GetModelBoundingBox(chest.model);
+        box.min = Vector3Scale(box.min, chest.scale.x);
+        box.max = Vector3Scale(box.max, chest.scale.x);
+            
+        box.min = Vector3Add(box.min, chest.position);
+        box.max = Vector3Add(box.max, chest.position);
+        
         BeginDrawing();
         ClearBackground(RAYWHITE);
         
         BeginMode3D(camera.cam);
+        
         WorldDraw(world);
         EntityDraw(chest);
-       
-        // DrawGrid(10, 1.0f);
 
+        if(isDragging){
+            DrawBoundingBox(box,RED);
+        }
 
         EndMode3D();
-
-        DrawText("RTS de teste", 10,10,20, DARKGRAY);
+        
+        DrawText("Sandbox feito em C", 10, 10,30, DARKGRAY);
+        DrawText("Use Q para aumentar o zoom e E para diminuir", 10, windowY - 70,30, DARKGRAY);
+        DrawText("Use as setinhas para mover a camera", 10, windowY - 40,30, DARKGRAY);
         EndDrawing();
     }
     EntityUnload(chest);
