@@ -4,6 +4,7 @@
 #include "camera.h"
 #include "entity.h"
 #include "world.h"
+#include "gui.h"
 
 static GameCamera camera;
 static Entity rock;
@@ -100,10 +101,7 @@ void GameDraw(){
 
     EndMode3D();
 
-    DrawText(TextFormat("FPS: %d", GetFPS()), 800-120, 10,30, DARKGRAY);  
-    DrawText("Sandbox feito em C", 10, 10,30, DARKGRAY);
-    DrawText("Use Q para aumentar o zoom e E para diminuir", 10, 600 - 70,30, DARKGRAY);
-    DrawText("Use as setinhas para mover a camera", 10, 600 - 40,30, DARKGRAY);
+    GuiDraw();
 }
 
 void GameUnload(){

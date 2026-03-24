@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -Iinclude -Iincludes/core -Iincludes/entities -Iincludes/scenes -Iincludes/world
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude -Iincludes/core -Iincludes/gui -Iincludes/entities -Iincludes/scenes -Iincludes/world
 LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lX11
 
 SRC = $(wildcard src/*.c) \
@@ -7,6 +7,7 @@ SRC = $(wildcard src/*.c) \
       $(wildcard src/entities/*.c) \
 	  $(wildcard src/world/*.c) \
 	  $(wildcard src/scenes/*.c) \
+	  $(wildcard src/gui/*.c) \
 	  $(wildcard ./*.c)
 OBJ = $(SRC:.c=.o)
 
