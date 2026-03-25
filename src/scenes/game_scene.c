@@ -89,6 +89,7 @@ void GameUpdate(){
 }
 
 void GameDraw(){
+    ClearBackground(RAYWHITE);
     BeginMode3D(camera.cam);
 
     WorldDraw(world);
