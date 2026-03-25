@@ -42,7 +42,6 @@ void MenuDraw(){
 
     DrawText(title, titleX, titleY, titleSize, LIGHTGRAY);
 
-
     if(GuiButton((Rectangle){startButtonX, startButtonY, buttonWidth, buttonHeight},"Iniciar Jogo")){
       shouldChangeScene = true;
     }

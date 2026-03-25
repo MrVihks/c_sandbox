@@ -41,7 +41,7 @@ void GameInit(){
         world.scale.y,
         world.scale.z
     );
-
+    GuiInit();
 }
 
 void GameUpdate(){
