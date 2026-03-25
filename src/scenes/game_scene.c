@@ -15,8 +15,15 @@ static BoundingBox box;
 static bool isDragging;
 static Vector3 dragOffset;
 
+static Music backgroundMusic;
+static float musicVolume = 0.5f;
+
 void GameInit(){
     camera = CameraInit();
+    
+    backgroundMusic = LoadMusicStream("assets/audio/background_music.mp3");
+    PlayMusicStream(backgroundMusic);
+    SetMusicVolume(backgroundMusic, musicVolume);
 
     isDragging = false;
     dragOffset = (Vector3){0};
@@ -41,12 +48,15 @@ void GameInit(){
         world.scale.y,
         world.scale.z
     );
+
     GuiInit();
 }
 
 void GameUpdate(){
     CameraUpdate(&camera);
     EntityUpdate(&rock);
+
+    UpdateMusicStream(backgroundMusic);
 
     if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
         Ray ray = GetMouseRay(GetMousePosition(), camera.cam);
@@ -95,7 +105,6 @@ void GameDraw(){
     WorldDraw(world);
     EntityDraw(rock);
 
-
     if(isDragging){
         DrawBoundingBox(box, RED);
     }
@@ -108,6 +117,9 @@ void GameDraw(){
 void GameUnload(){
     EntityUnload(rock);
     WorldUnload(world);
+
+    StopMusicStream(backgroundMusic);
+    UnloadMusicStream(backgroundMusic);
 }
 
 Scene CreateGameScene(){

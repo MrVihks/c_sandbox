@@ -7,12 +7,21 @@
 
 static bool shouldChangeScene = false;
 
+static Music backgroundMusic;
+static float musicVolume = 0.2f;
+
 void MenuInit(){
+    backgroundMusic = LoadMusicStream("assets/audio/menu_music.mp3");
+    PlayMusicStream(backgroundMusic);
+    SetMusicVolume(backgroundMusic, musicVolume);
+
     GuiSetStyle(DEFAULT, TEXT_SIZE, 35);
 }
 
 
 void MenuUpdate(){
+  UpdateMusicStream(backgroundMusic);
+
   if(shouldChangeScene){
     SetScene(CreateGameScene());
   }
@@ -52,7 +61,8 @@ void MenuDraw(){
 }
 
 void MenuUnload(){
-
+    StopMusicStream(backgroundMusic);
+    UnloadMusicStream(backgroundMusic);
 }
 
 Scene CreateMenuScene(){

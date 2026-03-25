@@ -11,9 +11,10 @@ int main(){
     int windowY = 600;
 
     InitWindow(windowX,windowY, "Prime SandBox");
+    InitAudioDevice();
+
     SetTargetFPS(60);
     
-    // SetScene(CreateGameScene());
     SetScene(CreateMenuScene());
 
     while(!WindowShouldClose() && !gameShouldClose){
@@ -27,6 +28,8 @@ int main(){
     }
 
     UnloadScene();
+    
+    CloseAudioDevice();
     CloseWindow();
     
     return 0;
