@@ -3,6 +3,6 @@ build/
 *.o
 *.out
 *.exe
-
+.vscode
 
 game
