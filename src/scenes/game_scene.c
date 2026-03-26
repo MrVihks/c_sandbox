@@ -115,6 +115,7 @@ void GameDraw(){
 }
 
 void GameUnload(){
+    GuiUnload();
     EntityUnload(rock);
     WorldUnload(world);
 

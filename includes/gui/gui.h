@@ -3,5 +3,6 @@
 
 void GuiInit();
 void GuiDraw();
+void GuiUnload();
 
 #endif

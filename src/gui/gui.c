@@ -2,12 +2,14 @@
 #include "gui.h"
 #include "raygui.h"
 
-static bool panelClosed = false;
+static bool panelClosed = true;
 static Texture2D rockTexture;
 
 void GuiInit(){
     GuiSetStyle(DEFAULT, TEXT_SIZE, 25);
     GuiSetStyle(DEFAULT, BACKGROUND_COLOR, (int)ColorToInt((Color){200, 200, 200, 255}));
+
+    rockTexture = LoadTexture("assets/gui/rock_texture.png");
 }
 
 void GuiDraw(){
@@ -34,10 +36,13 @@ void GuiDraw(){
 
     Rectangle panelRectangle = {panelX, panelY, panelWidth, panelHeight};
     
- 
+    int textureX = panelX + (panelWidth / 4);
+    int textureY = panelY + 20;
+
     if(!panelClosed){
        buttonY = panelY - buttonHeight - 10;
        GuiPanel(panelRectangle, (const char*)0);
+
     }else{
         buttonY = panelY + panelHeight - buttonHeight - 10;
     }
@@ -45,4 +50,8 @@ void GuiDraw(){
     if(GuiButton((Rectangle){buttonX, buttonY, buttonWidth, buttonHeight}, buttonText)){
         panelClosed = !panelClosed;
     }
+}
+
+void GuiUnload(){
+    UnloadTexture(rockTexture);
 }
