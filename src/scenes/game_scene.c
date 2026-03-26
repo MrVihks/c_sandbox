@@ -40,10 +40,13 @@ void GameInit(){
         ""
     );
 
-    rock.scale = (Vector3){1.0f,1.0f,1.0f};
-    rock.position = (Vector3){0.0f,4.5f, 0.0f};
-
-    world.scale = (Vector3){20.0f,20.0f, 20.0f};
+  
+    rock.scale = (Vector3){1.0f, 1.0f, 1.0f};
+    rock.position = (Vector3){0.0f,0.0f, 0.0f};
+    
+    // por enquanto vai ficar improvisado assim a posição Y do mundo.
+    world.scale = (Vector3){50.0f,20.0f, 50.0f};
+    world.position = (Vector3){0.0f,-4.4f,0.0f};
 
     transform = MatrixScale(
         world.scale.x,

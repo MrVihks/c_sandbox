@@ -9,7 +9,7 @@ World WorldLoad(const char *modelPath, const char *texturePath){
     w.terrainModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = w.terrainTexture;
 
     w.position = (Vector3){0,0,0};
-    w.scale = (Vector3){1.0f,1.0f,1.0f};
+    w.scale = (Vector3){10.0f,1.0f,10.0f};
 
     return w;
 }
