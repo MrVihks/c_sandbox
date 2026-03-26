@@ -5,6 +5,8 @@
 #include "entity.h"
 #include "world.h"
 #include "gui.h"
+#include "tutorial.h"
+
 
 static GameCamera camera;
 static Entity rock;
@@ -50,6 +52,7 @@ void GameInit(){
     );
 
     GuiInit();
+    InitTutorial();
 }
 
 void GameUpdate(){
@@ -57,7 +60,7 @@ void GameUpdate(){
     EntityUpdate(&rock);
 
     UpdateMusicStream(backgroundMusic);
-
+    UpdateTutorial();
     if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
         Ray ray = GetMouseRay(GetMousePosition(), camera.cam);
 
@@ -93,9 +96,6 @@ void GameUpdate(){
             
     box.min = Vector3Add(box.min, rock.position);
     box.max = Vector3Add(box.max, rock.position);
-        
-
-
 }
 
 void GameDraw(){
@@ -112,10 +112,12 @@ void GameDraw(){
     EndMode3D();
 
     GuiDraw();
+    DrawTutorial();
 }
 
 void GameUnload(){
     GuiUnload();
+    UnloadTutorial();
     EntityUnload(rock);
     WorldUnload(world);
 
