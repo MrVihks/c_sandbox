@@ -5,3 +5,11 @@
 void GuiInit(){
    // vou ajustar isso ainda
 }
+
+void GuiDraw(){
+    // vou ajustar isso ainda
+}
+
+void GuiUnload(){
+    // vou ajustar isso ainda
+}
