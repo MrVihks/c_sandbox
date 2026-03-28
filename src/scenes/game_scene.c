@@ -9,8 +9,11 @@
 
 
 static GameCamera camera;
-static Entity rock;
 static World world;
+static Entity rock;
+static Entity tree;
+static Entity tree2;
+
 static Matrix transform;
 static RayCollision hit;
 static BoundingBox box;
@@ -39,11 +42,26 @@ void GameInit(){
         "assets/models/rock_model.glb",
         ""
     );
-
+    tree = EntityLoad(
+        "assets/models/tree_model.glb",
+        ""
+    );
+    tree2 = EntityLoad(
+        "assets/models/tree_model.glb",
+        ""
+    );  
+    
   
     rock.scale = (Vector3){1.0f, 1.0f, 1.0f};
     rock.position = (Vector3){0.0f,0.0f, 0.0f};
     
+    tree.scale = (Vector3){1.0f, 1.0f, 1.0f};
+    tree.position = (Vector3){5.0f,1.2f, 5.0f};
+
+    tree2.scale = (Vector3){1.0f, 1.0f, 1.0f};
+    tree2.position = (Vector3){-5.0f,1.2f, -5.0f};
+
+
     // por enquanto vai ficar improvisado assim a posição Y do mundo.
     world.scale = (Vector3){50.0f,20.0f, 50.0f};
     world.position = (Vector3){0.0f,-4.4f,0.0f};
@@ -107,7 +125,10 @@ void GameDraw(){
 
     WorldDraw(world);
     EntityDraw(rock);
-    
+
+    EntityDraw(tree);
+    EntityDraw(tree2);
+
     if(isDragging){
         DrawBoundingBox(box, RED);
     }
@@ -122,6 +143,8 @@ void GameUnload(){
     GuiUnload();
     UnloadTutorial();
     EntityUnload(rock);
+    EntityUnload(tree);
+    EntityUnload(tree2);
     WorldUnload(world);
 
     StopMusicStream(backgroundMusic);
