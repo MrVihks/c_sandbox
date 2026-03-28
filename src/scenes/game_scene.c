@@ -6,7 +6,9 @@
 #include "world.h"
 #include "gui.h"
 #include "tutorial.h"
-
+#include "random_number.h"
+#include <stdio.h>
+#include <time.h>
 
 static GameCamera camera;
 static World world;
@@ -22,6 +24,8 @@ static Vector3 dragOffset;
 
 static Music backgroundMusic;
 static float musicVolume = 0.5f;
+
+static Vector3 treePositions[15];
 
 void GameInit(){
     camera = CameraInit();
@@ -50,16 +54,25 @@ void GameInit(){
         "assets/models/tree_model.glb",
         ""
     );  
-    
+
+    // Logo vou arrumar isso, está bem preguiçoso
+ 
+
+    for(int i = 0; i < 15; i++){
+        int treeRandomX = GetRandomNumber(-12,12);
+        int treeRandomZ = GetRandomNumber(-12,12);
   
+        treePositions[i] = (Vector3){treeRandomX, 1.2f, treeRandomZ};
+    }
+
     rock.scale = (Vector3){1.0f, 1.0f, 1.0f};
     rock.position = (Vector3){0.0f,0.0f, 0.0f};
     
     tree.scale = (Vector3){1.0f, 1.0f, 1.0f};
-    tree.position = (Vector3){5.0f,1.2f, 5.0f};
+    tree.position = (Vector3){1.0f,1.2f, 1.0f};
 
     tree2.scale = (Vector3){1.0f, 1.0f, 1.0f};
-    tree2.position = (Vector3){-5.0f,1.2f, -5.0f};
+    tree2.position = (Vector3){1.0f,1.2f, 1.0f};
 
 
     // por enquanto vai ficar improvisado assim a posição Y do mundo.
@@ -126,8 +139,12 @@ void GameDraw(){
     WorldDraw(world);
     EntityDraw(rock);
 
-    EntityDraw(tree);
-    EntityDraw(tree2);
+
+    for (int i =0; i < 15; i++){
+        tree.position = treePositions[i];
+        EntityDraw(tree);
+        EntityDraw(tree2);
+    }
 
     if(isDragging){
         DrawBoundingBox(box, RED);

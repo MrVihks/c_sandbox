@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -Iinclude -Iincludes/core -Iincludes/gui -Iincludes/entities -Iincludes/scenes -Iincludes/world
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude -Iincludes/core -Iincludes/gui -Iincludes/entities -Iincludes/scenes -Iincludes/world -Iincludes/utils
 
 ifeq ($(OS),Windows_NT)
 	TARGET = game.exe
@@ -17,6 +17,7 @@ SRC = $(wildcard src/*.c) \
 	  	$(wildcard src/world/*.c) \
 	  	$(wildcard src/scenes/*.c) \
 	  	$(wildcard src/gui/*.c) \
+			$(wildcard src/utils/*.c) \
 	  	$(wildcard ./*.c)
 
 OBJ = $(SRC:.c=.o)
