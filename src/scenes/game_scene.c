@@ -107,7 +107,7 @@ void GameDraw(){
 
     WorldDraw(world);
     EntityDraw(rock);
-
+    
     if(isDragging){
         DrawBoundingBox(box, RED);
     }
