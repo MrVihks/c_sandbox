@@ -46,8 +46,10 @@ void MenuDraw(){
     int startButtonY = buttonHeight + titleY;
     int multiplayerButtonX = (screenWidth / 2) - (buttonWidth / 2);
     int multiplayerButtonY = startButtonY + buttonHeight + 20;
+    int settingsButtonX = (screenWidth / 2) - (buttonWidth / 2);
+    int settingsButtonY = multiplayerButtonY + buttonHeight + 20;
     int quitButtonX = (screenWidth / 2) - (buttonWidth / 2);
-    int quitButtonY = multiplayerButtonY + buttonHeight + 20;
+    int quitButtonY = settingsButtonY + buttonHeight + 20;
 
     DrawText(title, titleX, titleY, titleSize, LIGHTGRAY);
 
@@ -55,6 +57,9 @@ void MenuDraw(){
       shouldChangeScene = true;
     }
     GuiButton((Rectangle){multiplayerButtonX, multiplayerButtonY, buttonWidth, buttonHeight},"Multiplayer");
+    if(GuiButton((Rectangle){settingsButtonX, settingsButtonY, buttonWidth, buttonHeight},"Configurações")){
+        // Implementar tela de configurações    
+    }
     if(GuiButton((Rectangle){quitButtonX, quitButtonY, buttonWidth, buttonHeight},"Sair do jogo")){
        gameShouldClose = true;
     }
