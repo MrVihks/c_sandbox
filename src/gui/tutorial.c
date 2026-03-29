@@ -26,7 +26,7 @@ void DrawTutorial(){
         GuiPanel(tutorialPanel, (const char*)0);
 
         DrawText("Tutorial Prime Sandbox", panelX + 10, panelY + 10, 40, DARKGRAY);      
-        DrawText("Use Q para aumentar o zoom e E para diminuir", panelX + 20, panelY + 70, tutorialFontSize, DARKGRAY);
+        DrawText("Use E para aumentar o zoom e Q para diminuir", panelX + 20, panelY + 70, tutorialFontSize, DARKGRAY);
         DrawText("Use as setinhas para mover a camera", panelX + 20, panelY + 110, tutorialFontSize, DARKGRAY);
 
         if(GuiButton((Rectangle){panelX + panelWidth - 160, panelY + panelHeight - 60, 150, 50}, "Fechar")){

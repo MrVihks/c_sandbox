@@ -3,7 +3,7 @@
 GameCamera CameraInit(void){
     GameCamera gc = {0};
 
-    gc.cam.position = (Vector3){0.0f,20.0f,20.0f};
+    gc.cam.position = (Vector3){0.0f,15.0f,20.0f};
     gc.cam.target = (Vector3){0.0f,0.0f,0.0f};
     gc.cam.up = (Vector3){0.0f,1.0f,0.0f};
     gc.cam.fovy = 45.0f;
@@ -39,6 +39,6 @@ void CameraUpdate(GameCamera *camera){
     }
 
 
-    if(IsKeyDown(KEY_Q)) camera -> cam.position.y += zoom;
-    if(IsKeyDown(KEY_E)) camera -> cam.position.y -= zoom;
+    if(IsKeyDown(KEY_Q) && camera -> cam.position.y < 20.0f) camera -> cam.position.y += zoom;
+    if(IsKeyDown(KEY_E) && camera -> cam.position.y > 2.0f) camera -> cam.position.y -= zoom;
 }
